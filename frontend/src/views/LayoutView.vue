@@ -8,6 +8,7 @@
         <RouterLink to="/cohorts">队列复现</RouterLink>
         <RouterLink to="/query">交互查询审查</RouterLink>
         <RouterLink to="/table-sets">固定表组核验</RouterLink>
+        <RouterLink to="/model-audit">模型审计与模型卡</RouterLink>
         <RouterLink to="/deliverables">交付与复现台账</RouterLink>
         <RouterLink to="/budget">预算与约束图</RouterLink>
         <RouterLink to="/audit">审计事件</RouterLink>

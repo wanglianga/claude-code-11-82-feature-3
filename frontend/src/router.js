@@ -12,6 +12,7 @@ const routes = [
       { path: 'cohorts', component: () => import('./views/CohortsView.vue') },
       { path: 'query', component: () => import('./views/QueryView.vue') },
       { path: 'table-sets', component: () => import('./views/TableSetView.vue') },
+      { path: 'model-audit', component: () => import('./views/ModelAuditView.vue') },
       { path: 'deliverables', component: () => import('./views/DeliverablesView.vue') },
       { path: 'budget', component: () => import('./views/BudgetView.vue') },
       { path: 'audit', component: () => import('./views/AuditView.vue') }

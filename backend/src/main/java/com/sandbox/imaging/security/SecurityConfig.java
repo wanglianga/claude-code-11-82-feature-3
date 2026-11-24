@@ -54,12 +54,23 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/login", "/api/health").permitAll()
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/model-audit/runs", "/api/model-audit/runs/**")
+                    .hasAnyRole("AUDITOR", "ADMIN")
+                .requestMatchers(org.springframework.http.HttpMethod.POST,
+                        "/api/model-audit/models/*/runs").hasAnyRole("AUDITOR", "ADMIN")
                 .anyRequest().authenticated())
-            .exceptionHandling(eh -> eh.authenticationEntryPoint((req, res, ex) -> {
-                res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                res.setContentType(MediaType.APPLICATION_JSON_VALUE);
-                mapper.writeValue(res.getWriter(), Map.of("error", "未认证或登录已过期", "status", 401));
-            }))
+            .exceptionHandling(eh -> eh
+                .authenticationEntryPoint((req, res, ex) -> {
+                    res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    res.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                    mapper.writeValue(res.getWriter(), Map.of("error", "未认证或登录已过期", "status", 401));
+                })
+                .accessDeniedHandler((req, res, ex) -> {
+                    res.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    res.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
+                    mapper.writeValue(res.getWriter(),
+                            Map.of("error", "权限不足：该操作仅限独立审计员/管理员", "status", 403));
+                }))
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

@@ -14,7 +14,8 @@
       <div class="hint">
         测试账号：<br />
         管理员 <span class="code-inline">admin / admin123</span>（批准编译、撤回、预算治理）<br />
-        分析师 <span class="code-inline">analyst / analyst123</span>（队列、查询、交付、复现）
+        独立审计员 <span class="code-inline">auditor / auditor123</span>（模型审计、发布闸门、模型卡）<br />
+        分析师 <span class="code-inline">analyst / analyst123</span>（队列、查询、交付、复现、查看抑制版模型卡）
       </div>
     </div>
   </div>
